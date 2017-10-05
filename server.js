@@ -10,6 +10,20 @@ app.get('/testResponse', function (req, res) {
    res.send('Hello World');
 })
 
+app.post('/testGetJson', (req, res) => {
+	if(req.headers.get("content-type") == 'application/json') {
+		console.log("Content type is JSON")
+	} else {
+		console.log("Content Type is not JSON")
+	}
+
+	var packet = {
+		longitude: req.body.longitude, 
+		latitude: req.body.latitude, 
+	}
+
+})
+
 var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port
