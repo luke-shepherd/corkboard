@@ -1,0 +1,20 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "ComBoard is a location based community bulletin board app. Users should be able to create, post to, and edit community boards with bulletin board materials like photos, notices, videos, and general notes.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luke-shepherd/ComBoard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luke-shepherd/ComBoard/issues"
+  },
+  "homepage": "https://github.com/luke-shepherd/ComBoard#readme"
+}
