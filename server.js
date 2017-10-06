@@ -11,7 +11,7 @@ app.get('/testResponse', function (req, res) {
 })
 
 app.post('/testGetJson', (req, res) => {
-	res.send(req)
+	res.send(JSON.stringify(req));
 
 })
 
