@@ -12,7 +12,7 @@ app.get('/testResponse', function (req, res) {
 
 app.post('/testGetJson', (req, res) => {
    console.log(req.headers);
-   res.send('Hello World');
+   res.send(JSON.stringify(req.headers));
 
 })
 
