@@ -11,10 +11,7 @@ app.get('/testResponse', function (req, res) {
 })
 
 app.post('/testGetJson', (req, res) => {
-	var packet = {
-		longitude: req.body.longitude, 
-		latitude: req.body.latitude, 
-	}
+	res.send(req)
 
 })
 
