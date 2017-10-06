@@ -11,12 +11,6 @@ app.get('/testResponse', function (req, res) {
 })
 
 app.post('/testGetJson', (req, res) => {
-	if(req.headers.get("content-type") == 'application/json') {
-		console.log("Content type is JSON")
-	} else {
-		console.log("Content Type is not JSON")
-	}
-
 	var packet = {
 		longitude: req.body.longitude, 
 		latitude: req.body.latitude, 
