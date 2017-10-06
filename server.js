@@ -11,7 +11,8 @@ app.get('/testResponse', function (req, res) {
 })
 
 app.post('/testGetJson', (req, res) => {
-	res.send(JSON.stringify(req));
+   console.log(req.headers);
+   res.send('Hello World');
 
 })
 
