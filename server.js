@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 /**bodyParser.json(options)
  * Parses the text as JSON and exposes the resulting object on req.body.
  */
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 app.post("/testPost", function (req, res) {
     console.log(req.body)
