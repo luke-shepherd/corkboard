@@ -1,10 +1,18 @@
 const express = require('express'),
       mongoose = require('mongoose');
        
-
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
 var app = express();
 var bodyParser = require('body-parser');
+
+var url = 'mongodb://localhost:27017/test123';
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected correctly to database.");
+  db.close();
+});
 
 //app.use(bodyParser());
 /**bodyParser.json(options)
@@ -24,10 +32,10 @@ app.get('/testResponse', function (req, res) {
 
 app.get('/getAllBoards', (req, res) => {
    console.log(req.headers);
-   res.send(JSON.stringify({'coordinates': {
+   res.send({'coordinates': {
    	'longitude': req.headers.longitude,
    	'latitude': req.headers.latitude,
-   }}));
+   }});
 
 })
 
