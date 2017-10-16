@@ -6,11 +6,14 @@ req: {
 		'accept':'application/json',
         'content-type': 'application/json',
         'x-access-token': module.exports.token,
+        'longitude': longitude,
+        'latitude': latitude, 
 	}
 
 	body: {
-		'longitude': longitude, 
-		'latitude': latitude
+		'boardID': id, 
+		'postTitle': title,
+		'postContent': content
 	}
 
 }
