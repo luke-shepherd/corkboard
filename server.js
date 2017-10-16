@@ -13,7 +13,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.post("/testPost", function (req, res) {
-    console.log(req.body)	
+    console.log(req.body);
+    res.send(req.body);
+	
 });
 
 app.get('/testResponse', function (req, res) {
