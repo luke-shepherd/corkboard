@@ -24,7 +24,10 @@ app.get('/testResponse', function (req, res) {
 
 app.get('/getAllBoards', (req, res) => {
    console.log(req.headers);
-   res.send(JSON.stringify(req.headers));
+   res.send(JSON.stringify({'coordinates': {
+   	'longitude': req.headers.longitude,
+   	'latitude': req.headers.latitude,
+   }}));
 
 })
 
