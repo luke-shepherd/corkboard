@@ -13,17 +13,16 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.post("/testPost", function (req, res) {
-    console.log(req.body)
-	
+    console.log(req.body)	
 });
 
 app.get('/testResponse', function (req, res) {
    res.send('Hello World');
 })
 
-app.post('/testGetJson', (req, res) => {
+app.get('/getAllBoards', (req, res) => {
    console.log(req.headers);
-   res.send(JSON.stringify(req));
+   res.send(JSON.stringify(req.headers));
 
 })
 
