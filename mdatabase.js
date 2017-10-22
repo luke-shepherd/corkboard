@@ -1,5 +1,5 @@
 
-/*Initiates a User schema and exports it 
+/*Initiates a User schema and exports it
 */
 
 var mongoose = require('mongoose');
@@ -11,18 +11,18 @@ var boardSchema = new Schema({
   longitude: Number,
   latitude: Number,
   token: String,
-  publicVisable: Boolean, 
+  publicVisable: Boolean,
   posts: [
     {
-      title: String, 
-      authID: String, 
-      authName: String, 
-      dateCreated: Number, 
+      title: String,
+      authID: String,
+      authName: String,
+      dateCreated: Number,
       dateEdited: Number,
       content: {
-        textBody: String, 
+        textBody: String,
         imageBody: String,
-      } 
+      }
 
     }
   ]
@@ -33,4 +33,4 @@ var Board = mongoose.model('Board', BoardSchema);
 
 module.exports = {
   Board: Board
-}
+};
