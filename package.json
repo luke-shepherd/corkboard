@@ -7,6 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "dependencies": {
+    "body-parser": "^1.1.1",
+    "express": "^4.13.3",
+    "mongodb": "^2.2.33",
+    "mongoose": "*"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luke-shepherd/ComBoard.git"
