@@ -1,5 +1,0 @@
-#testmongo.py
-
-
-import pymongo
-
