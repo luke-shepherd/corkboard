@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'ComBoard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db.mysql',
+        'NAME': 'comboard',
         'HOST': '35.203.142.144',
         'USER': 'root',
         'PASSWORD': '[PASSWORD]', 
