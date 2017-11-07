@@ -3,3 +3,5 @@ env
 comenv
 dbkeys/*
 ComBoard/settings.py
+
+ComBoard/__pycache__/
