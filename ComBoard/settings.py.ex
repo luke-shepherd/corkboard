@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'comboard',
 ]
 
 MIDDLEWARE = [
@@ -75,15 +77,15 @@ WSGI_APPLICATION = 'ComBoard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': 'comboard',
         'HOST': '35.203.142.144',
         'USER': 'root',
-        'PASSWORD': '[PASSWORD]', 
+        'PASSWORD': '[PASSWORD]',
         'OPTIONS': {
             'ssl': {
-                'ca': os.path.join(BASE_DIR, 'dbkeys/server-ca.pem'), 
-                'cert': os.path.join(BASE_DIR, 'dbkeys/client-cert.pem'), 
+                'ca': os.path.join(BASE_DIR, 'dbkeys/server-ca.pem'),
+                'cert': os.path.join(BASE_DIR, 'dbkeys/client-cert.pem'),
                 'key': os.path.join(BASE_DIR, 'dbkeys/client-key.pem'),
             }
         }
