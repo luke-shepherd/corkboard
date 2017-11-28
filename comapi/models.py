@@ -5,6 +5,9 @@
 from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 
+from django.conf import settings
+from django.contrib.auth import get_user_model
+
 
 #For Board/BoardPost on_delete. Deleted Users will not affect existing Boards.
 def get_sentinel_user():
@@ -26,6 +29,6 @@ class BoardPost(models.Model):
     post_title = models.CharField(max_length=200)
     post_body = models.CharField(max_length=4000)
 
-class BoardUser(models.User):
-    token = models.CharField()
-    legacy_boards = models.ManyToMany(Board)
+class BoardUser(User):
+    token = models.CharField(max_length=1000)
+    legacy_boards = models.ManyToManyField(Board)
