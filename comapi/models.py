@@ -3,6 +3,12 @@
 # DATABASE Models
 
 from django.contrib.gis.db import models
+from django.contrib.auth.models import User
+
+
+#For Board/BoardPost on_delete. Deleted Users will not affect existing Boards.
+def get_sentinel_user():
+    return get_user_model().objects.get_or_create(username='deleted')[0]
 
 
 class Board(models.Model):
@@ -12,10 +18,14 @@ class Board(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     location = models.GeometryField()
-    creator = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    creator = models.ForeignKey('auth.User', on_delete=models.SET(get_sentinel_user))
 
 
 class BoardPost(models.Model):
-    parent_board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    parent_board = models.ForeignKey(Board, on_delete=models.SET(get_sentinel_user))
     post_title = models.CharField(max_length=200)
     post_body = models.CharField(max_length=4000)
+
+class BoardUser(models.User):
+    token = models.CharField()
+    legacy_boards = models.ManyToMany(Board)
