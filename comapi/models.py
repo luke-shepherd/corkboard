@@ -29,6 +29,7 @@ class BoardPost(models.Model):
     post_title = models.CharField(max_length=200)
     post_body = models.CharField(max_length=4000)
 
-class BoardUser(User):
+class BoardUser(models.Model):
     token = models.CharField(max_length=1000)
     legacy_boards = models.ManyToManyField(Board)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)

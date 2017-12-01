@@ -17,9 +17,10 @@ class UserList(generics.ListCreateAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    lookup_field = 'id'
     permission_classes = ()
 
 
-class BoardList(generics.ListAPIView):
+class BoardCreate(generics.GenericAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
