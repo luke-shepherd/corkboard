@@ -21,7 +21,7 @@ class Board(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     location = models.GeometryField()
-    creator = models.ForeignKey('auth.User', on_delete=models.SET(get_sentinel_user))
+    creator = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
 
 
 class BoardUser(models.Model):
@@ -31,8 +31,8 @@ class BoardUser(models.Model):
 
 
 class BoardPost(models.Model):
-    parent_board = models.ForeignKey('Board', on_delete=models.CASCADE)
-    post_creator = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    parent_board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    post_creator = models.ForeignKey(User, on_delete=models.CASCADE)
     post_title = models.CharField(max_length=200)
     post_body = models.CharField(max_length=4000)
 
