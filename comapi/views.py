@@ -13,6 +13,9 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     permission_classes = ()
 
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
 
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
@@ -21,6 +24,9 @@ class UserDetail(generics.RetrieveAPIView):
     permission_classes = ()
 
 
-class BoardCreate(generics.GenericAPIView):
+class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

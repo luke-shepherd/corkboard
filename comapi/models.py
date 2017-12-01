@@ -25,7 +25,6 @@ class Board(models.Model):
 
 
 class BoardUser(models.Model):
-    token = models.CharField(max_length=1000)
     legacy_boards = models.ManyToManyField(Board)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
