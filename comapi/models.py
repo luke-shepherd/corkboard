@@ -13,6 +13,10 @@ from django.contrib.auth import get_user_model
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='deleted')[0]
 
+class BoardUser(models.Model):
+    token = models.CharField(max_length=1000)
+    legacy_boards = models.ManyToManyField(Board)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class Board(models.Model):
     public_viewable = models.BooleanField(default=False)
@@ -25,11 +29,8 @@ class Board(models.Model):
 
 
 class BoardPost(models.Model):
-    parent_board = models.ForeignKey(Board, on_delete=models.SET(get_sentinel_user))
+    parent_board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    post_creator = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     post_title = models.CharField(max_length=200)
     post_body = models.CharField(max_length=4000)
 
-class BoardUser(models.Model):
-    token = models.CharField(max_length=1000)
-    legacy_boards = models.ManyToManyField(Board)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
