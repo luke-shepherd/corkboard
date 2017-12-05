@@ -1,7 +1,8 @@
 from rest_framework import viewsets
+from rest_framework import mixins
 from rest_framework.response import Response
 
-from comapi.serializers import UserSerializer, BoardSerializer
+from comapi.serializers import UserSerializer, BoardSerializer, PostSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from comapi.models import Board, BoardPost
@@ -11,10 +12,6 @@ from comapi.models import Board, BoardPost
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = ()
-
-    def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -29,4 +26,12 @@ class BoardList(generics.ListCreateAPIView):
     serializer_class = BoardSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(creator=self.request.user)
+
+class BoardPost(generics.CreateAPIView):
+
+    queryset = BoardPost.objects.all()
+    serializer_class = PostSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user, parent_board=self.request.body.board)

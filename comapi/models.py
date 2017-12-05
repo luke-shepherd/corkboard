@@ -15,7 +15,7 @@ def get_sentinel_user():
 class Board(models.Model):
     public_viewable = models.BooleanField(default=False)
     viewable_radius = models.IntegerField()
-    question_text = models.CharField(max_length=200)
+    board_name = models.CharField(max_length=200)
     pub_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     location = models.GeometryField()
@@ -28,8 +28,10 @@ class BoardUser(models.Model):
 
 
 class BoardPost(models.Model):
-    parent_board = models.ForeignKey(Board, on_delete=models.CASCADE)
-    post_creator = models.ForeignKey(User, on_delete=models.CASCADE,
+    parent_board = models.ForeignKey(Board, related_name='posts', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE,
                                      default="", blank=False)
     post_title = models.CharField(max_length=200)
     post_body = models.CharField(max_length=4000)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    edit_date = models.DateTimeField(auto_now=True)
