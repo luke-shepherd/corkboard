@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^users/$', views.UserList.as_view()),
     url(r'^users/(?P<pk>[0-9]+)', views.UserDetail.as_view()),
     url(r'^boards/$', views.BoardList.as_view()),
-    url(r'^board_post/(?P<pk>[0-9]+)', views.BoardPost.as_view())
+    url(r'^boards/(?P<pk>[0-9]+)', views.BoardDetail.as_view()),
+    url(r'^board_posts/(?P<pk>[0-9]+)', views.BoardPostList.as_view())
 ]

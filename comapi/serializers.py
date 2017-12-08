@@ -22,15 +22,16 @@ class BoardUserSerializer(serializers.ModelSerializer):
         
 
 
-class BoardSerializer(serializers.HyperlinkedModelSerializer):
+class BoardListSerializer(serializers.HyperlinkedModelSerializer):
 
     creator = serializers.ReadOnlyField(source='creator.username')
-    posts = serializers.PrimaryKeyRelatedField(many=True, queryset=BoardPost.objects.all())
+    #posts = serializers.PrimaryKeyRelatedField(many=True, queryset=BoardPost.objects.all(), read_only=True)
 
     class Meta:
         model = Board
         fields = ('public_viewable', 'viewable_radius', 'board_name', 'pub_date', 
-                  'edit_date', 'location', 'creator', 'posts')
+                  'edit_date', 'location', 'creator')
+
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -41,3 +42,14 @@ class PostSerializer(serializers.ModelSerializer):
         model = BoardPost
         fields = ('creator', 'post_title', 'post_body', 'pub_date',
                   'edit_date')
+
+
+class BoardDetailSerializer(serializers.HyperlinkedModelSerializer):
+
+    creator = serializers.ReadOnlyField(source='creator.username')
+    posts = PostSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Board
+        fields = ('public_viewable', 'viewable_radius', 'board_name', 'pub_date', 
+                  'edit_date', 'location', 'creator', 'posts')
