@@ -17,7 +17,7 @@ class UserList(generics.ListCreateAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    lookup_field = 'id'
+    lookup_field = 'pk'
     permission_classes = ()
 
 
@@ -28,10 +28,11 @@ class BoardList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
-class BoardPost(generics.CreateAPIView):
+class BoardPost(generics.ListCreateAPIView):
 
     queryset = BoardPost.objects.all()
     serializer_class = PostSerializer
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user, parent_board=self.request.body.board)
+        b = Board.objects.get(pk=self.kwargs['pk'])
+        serializer.save(creator=self.request.user, parent_board=b)

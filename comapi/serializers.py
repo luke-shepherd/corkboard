@@ -34,10 +34,10 @@ class BoardSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    parent_board = serializers.ReadOnlyField(source='creator.username')
     creator = serializers.ReadOnlyField(source='creator.username')
+    #parent_board = serializers.HyperlinkedRelatedField(read_only=True, view_name='BoardPost')
 
     class Meta:
         model = BoardPost
-        fields = ('parent_board', 'creator', 'post_title', 'post_body', 'pub_date',
+        fields = ('creator', 'post_title', 'post_body', 'pub_date',
                   'edit_date')
