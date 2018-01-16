@@ -12,6 +12,7 @@ def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='deleted')[0]
 
 
+# Board model 
 class Board(models.Model):
     public_viewable = models.BooleanField(default=False)
     viewable_radius = models.IntegerField()
@@ -22,11 +23,15 @@ class Board(models.Model):
     creator = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
 
 
+# Board User Model
+# note: BoardUser is accociated with a User (from models.USer)
 class BoardUser(models.Model):
     legacy_boards = models.ManyToManyField(Board)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
+# Board Post Model
+# posts have parents and creators as Foreign Keys
 class BoardPost(models.Model):
     parent_board = models.ForeignKey(Board, related_name='posts', on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.CASCADE,

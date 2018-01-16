@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'password')
 
 
-
+# Serializer to store user accociation with seen boards
 class BoardUserSerializer(serializers.ModelSerializer):
 
     user = serializers.ReadOnlyField(source='user.username')
@@ -21,7 +21,7 @@ class BoardUserSerializer(serializers.ModelSerializer):
         fields = ('user', 'legacy_boards')
         
 
-
+# Serializer for listing boards
 class BoardListSerializer(serializers.HyperlinkedModelSerializer):
 
     creator = serializers.ReadOnlyField(source='creator.username')
@@ -33,7 +33,7 @@ class BoardListSerializer(serializers.HyperlinkedModelSerializer):
                   'edit_date', 'location', 'creator')
 
 
-
+# Serializer for Posts
 class PostSerializer(serializers.ModelSerializer):
     creator = serializers.ReadOnlyField(source='creator.username')
     #parent_board = serializers.HyperlinkedRelatedField(read_only=True, view_name='BoardPost')
@@ -43,7 +43,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('creator', 'post_title', 'post_body', 'pub_date',
                   'edit_date')
 
-
+# Serializer for inspecting boards
 class BoardDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     creator = serializers.ReadOnlyField(source='creator.username')

@@ -8,19 +8,23 @@ from django.contrib.auth.models import User
 from comapi.models import Board, BoardPost
 
 
-
+# Accociated with /users/
+# lists Users and provides POST for user creation. 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
+# Accociated with /users/[id]
+# sends single user view 
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'pk'
     permission_classes = ()
 
-
+# Accociated with /boards/
+# lists Boards and provides POST for board creation.
 class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardListSerializer
@@ -28,6 +32,8 @@ class BoardList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
+# Accociated with /boards/[id]
+# sends single board view 
 class BoardDetail(generics.ListAPIView):
     queryset = ''
     serializer_class = BoardDetailSerializer
@@ -45,7 +51,9 @@ class BoardDetail(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-
+# Accociated with /board_posts/[id]
+# sends single board post view (using id)
+# provides POST for board post creation
 class BoardPostList(generics.ListCreateAPIView):
 
     serializer_class = PostSerializer
