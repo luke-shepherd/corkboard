@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from comapi.serializers import UserSerializer, BoardDetailSerializer, BoardListSerializer, PostSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from comapi.models import Board, BoardPost
 
 
@@ -29,6 +30,7 @@ class BoardList(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardListSerializer
 
+    # modified to link created boards with users
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
 
@@ -41,6 +43,7 @@ class BoardDetail(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
 
+        # searches boards for specified id
         queryset = Board.objects.filter(pk=self.kwargs['pk'])
 
         page = self.paginate_queryset(queryset)
@@ -65,6 +68,7 @@ class BoardPostList(generics.ListCreateAPIView):
 
     def list(self, request, *args, **kwargs):
 
+        # search post for specified id
         queryset = BoardPost.objects.filter(parent_board=self.kwargs['pk'])
 
         page = self.paginate_queryset(queryset)

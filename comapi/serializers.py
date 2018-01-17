@@ -46,6 +46,7 @@ class PostSerializer(serializers.ModelSerializer):
 # Serializer for inspecting boards
 class BoardDetailSerializer(serializers.HyperlinkedModelSerializer):
 
+    # creator is serialized using usernames. can be changed (to pk?) if needed
     creator = serializers.ReadOnlyField(source='creator.username')
     posts = PostSerializer(many=True, read_only=True)
 
