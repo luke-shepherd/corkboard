@@ -1,12 +1,14 @@
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 
 from comapi.serializers import UserSerializer, BoardDetailSerializer, BoardListSerializer, PostSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from comapi.models import Board, BoardPost
+from rest_framework import status, permissions
 
 
 # Accociated with /users/
@@ -59,16 +61,20 @@ class BoardDetail(generics.ListAPIView):
 # provides POST for board post creation
 class BoardPostList(generics.ListCreateAPIView):
 
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = PostSerializer
     queryset = '' #need to declare queryset even though it's declared and filtered in list method
 
     def perform_create(self, serializer):
+
         b = Board.objects.get(pk=self.kwargs['pk'])
         serializer.save(creator=self.request.user, parent_board=b)
 
+
     def list(self, request, *args, **kwargs):
 
-        # search post for specified id
+        # search posts for specified board id
         queryset = BoardPost.objects.filter(parent_board=self.kwargs['pk'])
 
         page = self.paginate_queryset(queryset)

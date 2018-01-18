@@ -1,9 +1,10 @@
 """ComBoard URL Configuration
 The `urlpatterns` list routes URLs (with regex handle) to views.
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views 
+from rest_framework.authtoken import views as tokenauthviews
 from comapi import views
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     url(r'^boards/(?P<pk>[0-9]+)', views.BoardDetail.as_view()),
     url(r'^board_posts/(?P<pk>[0-9]+)', views.BoardPostList.as_view()),
     url(r'^accounts/login/', auth_views.LoginView.as_view()),
+    url(r'^api-token-auth/', tokenauthviews.obtain_auth_token)
 ]
